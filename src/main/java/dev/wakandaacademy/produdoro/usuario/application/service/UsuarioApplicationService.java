@@ -11,4 +11,5 @@ public interface UsuarioApplicationService {
 	UsuarioCriadoResponse criaNovoUsuario(UsuarioNovoRequest usuarioNovo);
     UsuarioCriadoResponse buscaUsuarioPorId(UUID idUsuario);
 
+    void mudaStatusParaFoco(UUID idUsuario);
 }

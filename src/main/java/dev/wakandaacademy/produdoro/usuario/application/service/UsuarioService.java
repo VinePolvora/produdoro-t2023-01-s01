@@ -43,5 +43,14 @@ public class UsuarioService implements UsuarioApplicationService {
 		return new UsuarioCriadoResponse(usuario);
 	}
 
+	@Override
+	public void mudaStatusParaFoco(UUID idUsuario) {
+		log.info("[inicia] UsuarioApplicationService - mudaStatusParaFoco");
+		Usuario usuario = usuarioRepository.buscaUsuarioPorId(idUsuario);
+		usuario.mudaStatusParaFoco();
+		usuarioRepository.salva(usuario);
+		log.info("[finaliza] UsuarioApplicationService - mudaStatusParaFoco");
+	}
+
 
 }
