@@ -17,23 +17,31 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TarefaInfraRepository implements TarefaRepository {
 
-    private final TarefaSpringMongoDBRepository tarefaSpringMongoDBRepository;
+	private final TarefaSpringMongoDBRepository tarefaSpringMongoDBRepository;
 
-    @Override
-    public Tarefa salva(Tarefa tarefa) {
-        try {
-            tarefaSpringMongoDBRepository.save(tarefa);
-        } catch (DataIntegrityViolationException e) {
-            throw APIException.build(HttpStatus.BAD_REQUEST, "Tarefa já cadastrada", e);
-        }
-        log.info("[finaliza] TarefaInfraRepository - salva");
-        return tarefa;
-    }
-    @Override
-    public Optional<Tarefa> buscaTarefaPorId(UUID idTarefa) {
-        log.info("[start] TarefaRepositoryMongoDB - buscaTarefaPorId");
-        Optional<Tarefa> tarefaPorId = tarefaSpringMongoDBRepository.findByIdTarefa(idTarefa);
-        log.info("[finish] TarefaRepositoryMongoDB - buscaTarefaPorId");
-        return tarefaPorId;
-    }
+	@Override
+	public Tarefa salva(Tarefa tarefa) {
+		try {
+			tarefaSpringMongoDBRepository.save(tarefa);
+		} catch (DataIntegrityViolationException e) {
+			throw APIException.build(HttpStatus.BAD_REQUEST, "Tarefa já cadastrada", e);
+		}
+		log.info("[finaliza] TarefaInfraRepository - salva");
+		return tarefa;
+	}
+
+	@Override
+	public Optional<Tarefa> buscaTarefaPorId(UUID idTarefa) {
+		log.info("[start] TarefaRepositoryMongoDB - buscaTarefaPorId");
+		Optional<Tarefa> tarefaPorId = tarefaSpringMongoDBRepository.findByIdTarefa(idTarefa);
+		log.info("[finish] TarefaRepositoryMongoDB - buscaTarefaPorId");
+		return tarefaPorId;
+	}
+
+	@Override
+	public void deleta(UUID idTarefa) {
+		log.info("[start] TarefaRepositoryMongoDB - deleta");
+		tarefaSpringMongoDBRepository.deleteById(idTarefa);
+		log.info("[finish] TarefaRepositoryMongoDB - deleta");
+	}
 }
