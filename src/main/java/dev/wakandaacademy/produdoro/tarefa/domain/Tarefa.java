@@ -39,6 +39,7 @@ public class Tarefa {
 	private StatusAtivacaoTarefa statusAtivacao;
 	private int contagemPomodoro;
 
+
 	public Tarefa(TarefaRequest tarefaRequest) {
 		this.idTarefa = UUID.randomUUID();
 		this.idUsuario = tarefaRequest.getIdUsuario();
@@ -54,5 +55,10 @@ public class Tarefa {
 		if(!this.idUsuario.equals(usuarioPorEmail.getIdUsuario())) {
 			throw APIException.build(HttpStatus.UNAUTHORIZED, "Usuário não é dono da Tarefa solicitada!");
 		}
+	}
+
+	public void contagemPomodoro() {
+		this.contagemPomodoro++;
+		
 	}
 }
